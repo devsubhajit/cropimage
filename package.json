@@ -1,0 +1,15 @@
+{
+  "name": "logocrop.v2",
+  "version": "1.0.0",
+  "description": "cropping image tool",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Subhajit Das",
+  "license": "ISC"
+}

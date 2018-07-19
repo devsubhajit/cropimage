@@ -1,0 +1,1080 @@
+/* ========= Custom CSS For Resize And Crop ========= */
+
+.mainWrapper {
+    padding-top: 30px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.mainWrapper h1 {
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    font-size: 44px;
+}
+
+.editLogoContainer {
+    width: 575px;
+    height: 385px;
+    margin: 35px auto;
+    border-radius: 14px;
+    border: 2px solid #cacacb;
+    background-color: #ccc;
+    position: relative;
+    overflow: hidden;
+}
+
+.editLogoContainer img {
+    width: auto;
+    height: 385px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.btn-cropEdit {
+    width: 220px;
+    height: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    margin: auto;
+    padding: 4px 25px 4px 60px;
+    background-color: #706f6f;
+    border: none;
+    border-radius: 12px;
+    /* z-index: 2; */
+    font-size: 28px;
+    text-transform: lowercase;
+    color: #fff;
+}
+
+.btn-cropEdit::before {
+    width: 25px;
+    height: 24px;
+    position: absolute;
+    content: "";
+    left: 25px;
+    top: 50%;
+    margin-top: -12px;
+    background-image: url("../images/cropEdit-icon.png");
+    background-position: left top;
+    /* z-index: 3; */
+}
+
+.contentOne {
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    text-align: center;
+}
+
+.mainWrapper h3 {
+    text-align: center;
+    margin: 0 auto 40px auto;
+    padding: 0;
+    font-size: 24px;
+    color: #494a4a;
+}
+
+.btn-download {
+    width: auto;
+    height: auto;
+    position: relative;
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 10px 85px 10px 120px;
+    background-color: #f69679;
+    border: 3px solid #fac6b6;
+    border-radius: 10px;
+    /* z-index: 2; */
+    font-size: 28px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.btn-download::before {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    content: "";
+    left: 75px;
+    top: 50%;
+    margin-top: -15px;
+    background-image: url("../images/download-icon.png");
+    background-position: left top;
+    /* z-index: 3; */
+}
+
+.btn-download:focus,
+.btn-download:hover {
+    box-shadow: none;
+}
+
+.socialIconList {
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    max-width: 450px;
+}
+
+.socialIconList h3 {
+    font-size: 28px;
+}
+
+.mainContainer {
+    width: 600px;
+    height: 600px;
+    margin: 60px auto;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+
+.mainContainer img {
+    width: 100%;
+    height: auto;
+}
+
+
+/*
+ * Global Attributes 
+ */
+
+.gMiddle {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+
+/*
+ * Editor area
+ *                                                                  > 2.1.1 #cropContain
+ *                                                    > 2.1 .canvasArea |                   > 2.1.2.1 .sourceImage >  2.1.2.1.1  img#cropimage
+ * div progress => 1.popupContainer > 2.editorHolder |              > 2.1.2 .cropEditor |   > 2.1.2.2 .overlayImg
+ *                                                    > 2.2 .editorButtons                  > 2.1.2.3 .elementResizable > 2.1.2.3.1 .cropViewBox > 2.1.2.3.2 img#foreGroundPhoto 
+ */
+
+.popupContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(33, 34, 36, 0.47);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease 0s;
+}
+
+.popupContainer.showpopup {
+    opacity: 1;
+    z-index: 1;
+    overflow-y: auto;
+}
+
+.editorHolder {
+    position: absolute;
+    min-width: 200px;
+    min-height: 100px;
+    background-color: #2b2d2f;
+    top: 10%;
+    bottom: auto;
+}
+
+
+/*width:890px; height:720px; (widht, height will be dynamic as per the image ratio) */
+
+.editorButtons {
+    text-align: center;
+}
+
+.editorButtons.eb1 {
+    margin-top: 40px;
+}
+
+.canvasArea {
+    position: relative;
+    margin: auto;
+    min-height: 240px;
+}
+
+
+/* dynamic w h */
+
+#cropContain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    margin: 20px;
+    background-image: url("../images/transparent-bg.png");
+    background-position: left top;
+    background-repeat: repeat;
+    overflow: hidden;
+}
+
+
+/* dynamic w h */
+
+#cropContain.active {
+    z-index: 100;
+}
+
+#cropContain>canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.cropEditor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.sourceImage {
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    margin: 20px;
+    overflow: hidden;
+}
+
+.sourceImage>#cropimage {
+    /* width: 600px;
+    height: auto; */
+}
+
+.overlayImg {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.elementResizable {
+    border: 1px solid #43e2ff;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+}
+
+.cropViewBox {
+    display: block;
+    height: 100%;
+    outline-color: rgba(51, 153, 255, 0.75);
+    outline: 1px solid #39f;
+    overflow: hidden;
+    width: 100%;
+}
+
+#foreGroundPhoto {
+    /* margin: 20px; */
+}
+
+.ui-resizable-handle {
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px #666;
+}
+
+.ui-resizable-nw {
+    left: -8px;
+    top: -8px;
+}
+
+.ui-resizable-ne {
+    top: -8px;
+    right: -8px;
+}
+
+.ui-resizable-sw {
+    bottom: -8px;
+    left: -8px;
+}
+
+.ui-resizable-se {
+    bottom: -8px;
+    right: -8px;
+}
+
+.ui-resizable-n {
+    top: -8px;
+    left: 50%;
+}
+
+.ui-resizable-s {
+    bottom: -8px;
+    left: 50%;
+}
+
+.ui-resizable-w {
+    left: -8px;
+    top: 50%;
+}
+
+.ui-resizable-e {
+    right: -8px;
+    top: 50%;
+}
+
+
+/* .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+} */
+
+
+/* ============================== CSS Added by Gopaal ============================== */
+
+.editorButtons {
+    width: 100%;
+    margin: auto;
+    padding: 15px 0;
+    position: relative;
+}
+
+
+/* .editorButtons.eb1 {
+    padding-top: 60px;
+} */
+
+.blackButton {
+    font-family: 'Raleway', sans-serif;
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+    /* background: rgb(51, 51, 51) linear-gradient(rgb(51, 51, 51) 5%, rgb(31, 31, 31) 100%) repeat scroll 0% 0%; */
+    background-color: #242628;
+    border-radius: 8px;
+    border: 2px solid rgb(28, 28, 28);
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(224, 224, 224);
+    font-size: 16px;
+    margin: 0 5px;
+    padding: 10px 24px;
+    text-decoration: none;
+    text-shadow: rgb(15, 15, 15) 0px 1px 0px;
+    font-weight: 600;
+}
+
+.eb1 .blackButton {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.eb2 {
+    padding-top: 0;
+}
+
+.btnEraser {
+    background-color: transparent;
+    border: none;
+    margin: 0 10px;
+    position: relative;
+    top: -2px;
+}
+
+.blackButton2 {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0 5px;
+}
+
+.blackButton2:focus {
+    box-shadow: none;
+}
+
+.blackButton2 input[type=checkbox],
+.blackButton2 input[type=radio] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.blackButton2 label {
+    cursor: pointer;
+    position: relative;
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+    background-color: #242628;
+    border-radius: 8px;
+    border: 2px solid rgb(28, 28, 28);
+    display: inline-block;
+    color: rgb(224, 224, 224);
+    font-size: 16px;
+    padding: 10px 24px;
+    text-decoration: none;
+    text-shadow: rgb(15, 15, 15) 0px 1px 0px;
+    font-weight: 600;
+}
+
+.blackButton2 label:after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+    opacity: 0;
+}
+
+.blackButton2 input:checked+label {
+    background: #4d4d4d;
+}
+
+.blackButton2 input:checked+label:after {
+    left: calc(100% - 1px);
+    transform: translateX(-100%);
+}
+
+.blackButton2 label:active:after {
+    width: 40px;
+}
+
+.blackButton2 .blackButton {
+    margin: 0 5px;
+    position: relative;
+}
+
+.blackButton2 .erasorlabel {
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 0;
+}
+
+#roundimage {
+    height: 20px;
+}
+
+.roundimage {
+    height: 20px;
+}
+
+.cropSpan {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ui-resizable-handle.ui-resizable-s {
+    width: 30px;
+    border-radius: 10px;
+    margin-left: -15px;
+}
+
+.ui-resizable-handle.ui-resizable-n {
+    width: 30px;
+    border-radius: 10px;
+    margin-left: -15px;
+}
+
+.ui-resizable-handle.ui-resizable-w {
+    height: 30px;
+    border-radius: 10px;
+    margin-top: -15px;
+}
+
+.ui-resizable-handle.ui-resizable-e {
+    height: 30px;
+    border-radius: 10px;
+    margin-top: -15px;
+}
+
+
+/* ========= Check Uncheck CSS ========= */
+
+.socialSize {
+    width: 100%;
+    margin: auto;
+    height: auto;
+    list-style: none;
+    padding: 0;
+}
+
+.socialSize li {
+    display: flex;
+    text-align: left;
+    position: relative;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.socialSize li label {
+    position: relative;
+    padding-left: 28px;
+    line-height: 26px;
+}
+
+.socialSize li input {
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.socialSize li input[type=checkbox]+label {
+    color: #494a4a;
+    font-size: 20px;
+}
+
+.socialSize li input[type=checkbox]:checked+label {
+    color: #494a4a;
+}
+
+.socialSize li input[type=checkbox]+label::before {
+    width: 21px;
+    height: 19px;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    background-image: url("../images/check-inactive.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    /* z-index: 1; */
+}
+
+.socialSize li input[type=checkbox]:checked+label::before {
+    /* background-image: url("../images/check-active.png"); */
+    background-image: url("../images/check-inactive.png");    
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+
+/* ========= Range Slider ========= */
+
+.rangeSlide {
+    width: 150px;
+    height: 38px;
+    position: absolute;
+    left: -126px;
+    right: 0;
+    margin: auto;
+    top: -22px;
+}
+
+.rangeSlide::after {
+    width: 0;
+    height: 0;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #1c1c1c;
+    margin-top: -2px;
+}
+
+.rangeSlide input[type=range] {
+    -webkit-appearance: none;
+    margin: 0;
+    width: 100%;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+    background-color: #242628;
+    border-radius: 8px;
+    border: 2px solid rgb(28, 28, 28);
+    padding: 5px 3px;
+}
+
+.rangeSlide input[type=range]:focus {
+    outline: none;
+}
+
+.rangeSlide input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    cursor: pointer;
+    animation: 0.2s;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 25px;
+    border: 0px solid #000101;
+}
+
+.rangeSlide input[type=range]::-webkit-slider-thumb {
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+    border: 0px solid #000000;
+    height: 9px;
+    width: 16px;
+    border-radius: 4px;
+    background-color: #666;
+    border-bottom: 1px solid #666;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.rangeSlide input[type=range]:focus::-webkit-slider-runnable-track {
+    background-color: transparent;
+}
+
+.rangeSlide input[type=range]::-moz-range-track {
+    width: 100%;
+    cursor: pointer;
+    animation: 0.2s;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 25px;
+    border: 0px solid #000101;
+}
+
+.rangeSlide input[type=range]::-moz-range-thumb {
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+    border: 0px solid #000000;
+    height: 9px;
+    width: 16px;
+    border-radius: 4px;
+    background-color: #666;
+    border-bottom: 1px solid #666;
+    cursor: pointer;
+}
+
+.rangeSlide input[type=range]::-ms-track {
+    width: 100%;
+    cursor: pointer;
+    animation: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    border-width: 39px 0;
+    color: transparent;
+}
+
+.rangeSlide input[type=range]::-ms-fill-lower {
+    background-color: transparent;
+    border: 0px solid #000101;
+    border-radius: 50px;
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+}
+
+.rangeSlide input[type=range]::-ms-fill-upper {
+    background-color: transparent;
+    border: 0px solid #000101;
+    border-radius: 50px;
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+}
+
+.rangeSlide input[type=range]::-ms-thumb {
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+    border: 0px solid #000000;
+    height: 9px;
+    width: 16px;
+    border-radius: 4px;
+    background-color: #666;
+    border-bottom: 1px solid #666;
+    cursor: pointer;
+}
+
+.rangeSlide input[type=range]:focus::-ms-fill-lower {
+    background-color: transparent;
+}
+
+.rangeSlide input[type=range]:focus::-ms-fill-upper {
+    background-color: transparent;
+}
+
+
+/* subhajit */
+
+.erasersTool {
+    display: none;
+}
+
+.erasersTool.active {
+    display: inline-block;
+}
+
+#redrawCanvas {
+    z-index: -1;
+}
+
+
+/* brush tool and are to listen events */
+
+#overDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+#brushElem {
+    background: transparent;
+    position: absolute;
+    border: 1px solid #000;
+    z-index: 1;
+    box-shadow: 0px 0px 2px #fff;
+}
+
+#brushScale.inActive {
+    display: none;
+}
+
+
+/* color pallet */
+
+.btnLabel3 input {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.btnLabel3 label {
+    box-shadow: rgb(67, 68, 70) 0px 1px 0px 0px inset;
+    background-color: #242628;
+    border-radius: 8px;
+    border: 2px solid rgb(28, 28, 28);
+}
+
+.colorPallet {
+    width: 70px;
+    height: auto;
+    position: absolute;
+    left: 3px;
+    right: 0;
+    margin: auto;
+    padding: 0;
+    top: -34px;
+}
+
+.colorPallet::after {
+    width: 0;
+    height: 0;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -7px;
+    margin: auto;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #1c1c1c;
+}
+
+.colorBox {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: -24px;
+    left: 62px;
+    visibility: hidden;
+}
+
+.colorBox img {
+    width: 100%;
+    height: auto;
+}
+
+.colorPallet label {
+    width: auto;
+    height: auto;
+    padding: 5px 10px;
+    margin-bottom: 0;
+}
+
+.colorPallet label img {
+    width: 16px;
+    height: auto;
+}
+
+.colorPallet.inActive {
+    display: none;
+}
+
+#colorPallet:checked+label+div.colorBox {
+    visibility: visible;
+}
+
+#palletCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+    z-index: 1;
+}
+
+.colorPallet input {
+    position: absolute;
+}
+
+
+/* Loader  */
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#loader.inActive {
+    display: none;
+}
+
+.spinner {
+    margin: auto;
+    width: 170px;
+    height: 70px;
+    position: absolute;
+    text-align: center;
+}
+
+.spinner>span {
+    color: #fff;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+.spinner>div {
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes sk-bouncedelay {
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
+}
+
+#outContainer {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+#storeContainer{
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* #outContainer canvas {  
+    image-rendering: optimizeSpeed;             
+  image-rendering: -moz-crisp-edges;         
+  image-rendering: -webkit-optimize-contrast; 
+  image-rendering: -o-crisp-edges;            
+  image-rendering: pixelated;                 
+  -ms-interpolation-mode: nearest-neighbor;
+  } */
+
+
+/* ========= Tab CSS ========= */
+
+.mainTabContainer {
+    width: 100%;
+    margin: auto;
+    padding: 0;
+}
+
+.mainTabContainer .tab-content {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.mainTabContainer .nav-tabs {
+    border-bottom-color: transparent;
+}
+
+.mainTabContainer .nav-tabs li {
+    width: 50%;
+    border-radius: 0;
+    border: none;
+    position: relative;
+}
+
+.mainTabContainer .nav-tabs li a {
+    font-size: 16px;
+    font-weight: 600;
+    color: #8a8f95;
+    letter-spacing: 1px;
+    border-radius: 0;
+    background-color: #e3e3e3;
+    text-align: center;
+    border-top: 4px solid #dde0e1;
+    border-left: none;
+    border-right: none;
+    padding-bottom: 12px;
+    padding-top: 12px;
+}
+
+.mainTabContainer .nav-tabs li a.active {
+    color: #646669;
+    background-color: #fff;
+    border-left: transparent;
+    border-top: 4px solid #706f6f;
+    border-right: transparent;
+    border-radius: 0;
+}
+
+.usages-nav::before {
+    width: 20px;
+    height: 20px;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    margin-top: -10px;
+    margin-left: -15px;
+    background-image: url("../images/usages-img.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+}
+
+.videoT-nav::before {
+    width: 20px;
+    height: 18px;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 16%;
+    margin-top: -8px;
+    margin-left: -12px;
+    background-image: url("../images/videoT-img.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+
+/* common modal button */
+
+#commonModalBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    visibility: hidden;
+}

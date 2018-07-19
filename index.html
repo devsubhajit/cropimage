@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <title>Welcome | Demo</title>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/touchSupport.js"></script>
+</head>
+
+<body>
+    <div class="container mainWrapper">
+        <h1>Social profile icon creator</h1>
+        <div class="editLogoContainer">
+            <img id="selectedLogo" src="assets/logo/LogoMakr-87n5vJ.svg" alt="">
+                <!-- <img id="selectedLogo" src="assets/logo/LogoMakr-4xHeJi.svg" alt=""> -->
+                <!-- <img id="selectedLogo" src="assets/logo/LogoMakr-1xOnnK.svg" alt=""> -->
+                <!-- <img id="selectedLogo" src="assets/logo/LogoMakr-6Wk02w.svg" alt=""> -->
+                <!-- <img id="selectedLogo" src="assets/logo/bottle.1.svg" alt=""> -->
+                <!-- above two lines are from skype chat -->
+            <!-- <img id="selectedLogo" src="assets/images/test3.svg" alt=""> -->
+            <!-- <img id="selectedLogo" src="assets/images/78dm5r.svg" alt=""> -->
+            <!-- <img id="selectedLogo" src="assets/logo/2tPaQc.svg" alt=""> -->
+            <!-- <img id="selectedLogo" src="assets/logo/8zJi0B-fixed-document-size.svg"  width="403px" height="189px" alt=""> -->
+            <button id="crop-editor" onclick="openEditor()" type="button" class="btn btn-cropEdit"> crop & edit </button>
+        </div>
+        <div class="contentOne">
+            <h3>Click the button above to crop and edit your icon</h3>
+            <button type="button" onclick="downloadIcons()" class="btn btn-download"> DOWNLOAD ICON </button>
+        </div>
+        <div class="socialIconList">
+            <h3>Socail icon usages:</h3>
+            <!--========= Tab Container =========-->
+            <div class="mainTabContainer">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item usages-nav">
+                        <a class="nav-link active" id="usages-tab" data-toggle="tab" href="#usages" role="tab" aria-controls="usages" aria-selected="true">Usages</a>
+                    </li>
+                    <li class="nav-item videoT-nav">
+                        <a class="nav-link" id="videoTutorial-tab" data-toggle="tab" href="#videoTutorial" role="tab" aria-controls="videoTutorial"
+                            aria-selected="false">Video Tutorial</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="usages" role="tabpanel" aria-labelledby="usages-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="socialSize">
+                                    <li>
+                                        <input type="checkbox" id="twitter" name="ossm" data-size="400">
+                                        <label for="twitter">Twitter</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="facebook" name="ossm" data-size="170">
+                                        <label for="facebook">Facebook</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="instagram" name="ossm" data-size="110">
+                                        <label for="instagram">Intstagram</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="pinterest" name="ossm" data-size="160">
+                                        <label for="pinterest">Pinterest</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="favpng" name="ossm" data-size="16">
+                                        <label for="favpng">Favicon png</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="socialSize">
+                                    <li>
+                                        <input type="checkbox" id="linkedin" name="ossm" data-size="400">
+                                        <label for="linkedin">Linkedin</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="youtube" name="ossm" data-size="800">
+                                        <label for="youtube">Youtube</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="google" name="ossm" data-size="250">
+                                        <label for="google">Google+</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="tumblr" name="ossm" data-size="128">
+                                        <label for="tumblr">Tumblr</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="favico" name="ossm" data-size="16">
+                                        <label for="favico">Favicon ico</label>
+                                        <input type="checkbox" id="extrajpg" name="ossm" data-size="500" style="display:none;">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="videoTutorial" role="tabpanel" aria-labelledby="videoTutorial-tab">
+                        <div class="videoFrame">
+                            <!-- video goes here -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- editor -->
+        <!-- 
+          Structure Follows this way =>
+          1. main fixed container getting window size with transparent black background
+          2. matt black holder with buttons  
+          3. canvas area (don't get counfused with html5 canvas :} )
+         -->
+        <!-- 1 -->
+        <div class="popupContainer">
+            <div class="editorHolder gMiddle">
+                <div class="canvasArea">
+                    <div id="cropContain"></div>
+                    <div class="cropEditor">
+                        <div class="sourceImage">
+                            <img id="cropimage" src="">
+                        </div>
+                        <div class="overlayImg"></div>
+                        <div class="ui-widget-content elementResizable">
+                            <div class="cropViewBox">
+                                <img id="foreGroundPhoto" src="">
+                            </div>
+                            <!-- ui-handles are added from library dynamically add these changed in plugin, added statically -->
+                        </div>
+                    </div>
+                </div>
+                <div class="editorButtons eb1">
+                    <span class="erasersTool">
+
+                        <div class="btn rangeSlide inActive" id="brushScale">
+                            <input class="scaleRange" type="range" min="10" max="100" value="10">
+                        </div>
+                        <!-- color palate -->
+                        <div class="btn btnLabel3 colorPallet inActive">
+                            <input type="checkbox" id="colorPallet">
+                            <label for="colorPallet">
+                                <img class="roundimage" src="assets/images/color-pallete.png" />
+                            </label>
+                            <div class="colorBox" id="colorBoxCont">
+                                <img id="colorSrc" src="assets/images/colorBox.jpg">
+                                <label style="width: 30px; height: 30px; position: absolute; top: 0; right: -30px; display: block; overflow: hidden;left: auto; padding: 0;"
+                                    for="colorPallet">
+                                    <img src="assets/images/close.png" style="width:14px; height:auto;">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="btn blackButton2">
+                            <input type="radio" id="erasor" name="tools" />
+                            <label for="erasor" class="erasorlabel">
+                                <img class="roundimage" src="assets/images/eraser.png">
+                            </label>
+                        </div>
+                        <div class="btn blackButton2">
+                            <input type="radio" id="clPicker" name="tools" />
+                            <label for="clPicker" class="erasorlabel">
+                                <img class="roundimage" src="assets/images/color-picker.png">
+                            </label>
+                        </div>
+                        <button id="undoimage" type="button" class="btn blackButton">
+                            <img src="assets/images/undo.png">
+                        </button>
+                    </span>
+                    <!-- crop edit section -->
+                    <span class="cropTool">
+                        <div class="btn blackButton2">
+                            <input type="checkbox" id="circle" />
+                            <label for="circle" class="blackButton">
+                                <img id="roundimage" src="assets/images/circle-shape-outline.png">
+                            </label>
+                        </div>
+                        <button id="cropConfirm" type="button" class="btn blackButton">
+                            <img src="assets/images/crop-symbol.png">
+                        </button>
+                    </span>
+                </div>
+                <div class="editorButtons eb2">
+                    <button onclick="closeEditor()" type="button" class="btn blackButton">Cancel</button>
+                    <button type="button" class="btn blackButton" id="confirmEdit">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="storeContainer"></div>
+    <div id="outContainer"></div>
+
+    <!-- Common modal -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary " id="commonModalBtn" data-toggle="modal" data-target="#commonAlert">common modal</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="commonAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="exampleModalLabel">Alert Title (If Any)</h5> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="commonAlert-body">
+                    Choose your download file size before stating the download.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- loader -->
+    <div id="loader">
+        <div class="spinner gMiddle">
+            <span>Loading</span>
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <script src="assets/js/crop-erase.js"></script>
+</body>
+
+</html>
